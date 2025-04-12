@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuyX</title>
+    <style>
+          /* premium bottun css */
+
+    /* Basic Styles */
+.top-bar-text {
+    text-align: center;
+}
+
+.hover-button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #121518; /* Button background color */
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for effects */
+}
+
+/* Hover Effect */
+.hover-button:hover {
+    background-color: #fdbe33; /* Change background on hover */
+    color: #121518; /* Change text color on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    transform: translateY(-5px); /* Slight upward movement */
+}
+
+/* Optional: Adding underline on hover */
+.hover-button:hover {
+    text-decoration: underline;
+}
+        /* Container for the circular div */
+        .circle-container {
+            position: relative;
+            width: 200px; /* Set the size of the circle */
+            height: 200px;
+            border: 5px solid yellow; /* Yellow border for the circle */
+            border-radius: 50%; /* Makes the div circular */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide anything that goes outside the circle */
+        }
+
+        /* Logo styling (centered in the circle) */
+        .logo {
+            position: absolute;
+            width: 80px; /* Adjust size of the logo */
+            height: 80px;
+            background-image: url('https://via.placeholder.com/80'); /* Replace with actual logo URL */
+            background-size: cover;
+            background-position: center;
+            z-index: 0; /* Keeps logo behind text */
+        }
+
+        /* Rotating text circle effect */
+        .rotating-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the text */
+            width: 100%; /* Full width of the circle */
+            height: 100%; /* Full height of the circle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.2;
+            transform-origin: center;
+            animation: rotateText 10s linear infinite; /* Animation to rotate the text */
+        }
+
+        /* Animation for rotating text */
+        @keyframes rotateText {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Spacing for the rotating text */
+        .rotating-text span {
+            position: absolute;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Circle Container with Logo and Rotating Text -->
+    <div class="circle-container">
+        <!-- Logo (this will be behind the text) -->
+        <div class="logo"></div>
+
+        <!-- Rotating Text -->
+        <div class="rotating-text">
+            <span>Company Name</span>
+        </div>
+    </div>
+
+</body>
+</html>

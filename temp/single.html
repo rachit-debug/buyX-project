@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>BuyX</title>
+        {% load cart %}
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Construction Company Website Template" name="keywords">
+        <meta content="Construction Company Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet"> 
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="lib/slick/slick.css" rel="stylesheet">
+        <link href="lib/slick/slick-theme.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+              /* premium bottun css */
+              .form-container {
+            position: fixed;
+            bottom: 0px;
+            /* Fix to bottom */
+            left: 10px;
+            /* Fix to left */
+            width: 100%;
+            /* Full width on desktop */
+            max-width: 300px;
+            /* Max width of the form */
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: all 0.3s ease;
+            /* Smooth transition for width and padding */
+            font-size: 12px;
+            /* initial font size */
+            height: auto;
+            /* Set height to auto to fit content */
+            max-height: 700px;
+            /* Max height for better control */
+            overflow-y: auto;
+            /* Ensure form content scrolls if too long */
+        }
+  /* Full width on desktop */
+        /* .form-container:hover {
+            width: 100%;
+          
+            max-width: 500px;
+            padding: 15px;
+            max-height: 700px;
+        } */
+        .card:hover{
+            /* box-shadow: 5px 10px 12px black; */
+            box-shadow: 0px 0px 18px 2px rgb(75, 75, 75); 
+            transition: 2s;
+        }
+
+        /* Close button styles */
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            padding: 0;
+            z-index: 1000;
+            /* Ensure it's on top of the form */
+        }
+
+        /* Shrink the form when scrolling */
+        .form-container.shrink {
+            width: 20%;
+            /* Reduce width when scrolled */
+            max-width: 100px;
+            font-size: 9px;
+            /* Decrease font size */
+            padding: 2px;
+            background-color: transparent;
+        }
+
+        .form-container.shrink:hover {
+            width: 100%;
+            /* Full width on desktop */
+            max-width: 500px;
+            padding: 15px;
+            max-height: 700px;
+            background-color: white;
+        }
+
+
+        /* Hide form when it's closed */
+        .form-container.hidden {
+            display: none;
+        }
+
+        /* Form input styles */
+        .form-container input,
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 5px;
+            background-color: #121518;
+            color: #fdbe33;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+    /* Basic Styles */
+.top-bar-text {
+    text-align: center;
+}
+
+.hover-button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #121518; /* Button background color */
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for effects */
+}
+
+/* Hover Effect */
+.hover-button:hover {
+    background-color: #fdbe33; /* Change background on hover */
+    color: #121518; /* Change text color on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    transform: translateY(-5px); /* Slight upward movement */
+}
+
+/* Optional: Adding underline on hover */
+.hover-button:hover {
+    text-decoration: underline;
+}
+        </style>
+    </head>
+
+    <body>
+        <div class="form-container" id="stickyForm">
+            <!-- Close button -->
+            <button class="close-btn" id="closeButton"
+                style="position: absolute; top: 5px; right: 5px; background-color: #121518; color:#fdbe33; border: none; font-size: 18px; cursor: pointer; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; padding: 0; z-index: 1000;">X</button>
+    
+            <p style="color: black;">Quote Now</p>
+            <p>Get Instant CIF Quote</p>
+    
+            <form method="POST" action="quotedata">
+    
+                <div>
+                    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+       
+           <p>
+            {{ message }}
+           </p>
+           
+       
+        {% endfor %}
+    
+    {% endif %}
+                </div>
+                {% csrf_token %}
+    
+                <!-- Company Name -->
+                <input type="text" name="companyName" placeholder="Company Name" required>
+    
+                <!-- Contact Number -->
+                <input type="tel" name="phone" placeholder="Phone" required>
+    
+                <!-- Email -->
+                <input type="email" name="email" placeholder="Email" required>
+    
+                <!-- Country Dropdown -->
+                <select id="country" name="country">
+                    <!-- Afghanistan to Albania -->
+                    <option value="AF">Afghanistan</option>
+                    <option value="AL">Albania</option>
+                    <option value="DZ">Algeria</option>
+                    <option value="AD">Andorra</option>
+                    <option value="AO">Angola</option>
+                    <option value="AG">Antigua and Barbuda</option>
+                    <option value="AR">Argentina</option>
+                    <option value="AM">Armenia</option>
+                    <option value="AU">Australia</option>
+                    <option value="AT">Austria</option>
+                    <option value="AE">Austrian Empire</option>
+                    <option value="AZ">Azerbaijan</option>
+                    
+                    <!-- B countries -->
+                    <option value="BA">Baden</option>
+                    <option value="BS">Bahamas</option>
+                    <option value="BH">Bahrain</option>
+                    <option value="BD">Bangladesh</option>
+                    <option value="BB">Barbados</option>
+                    <option value="BY">Belarus</option>
+                    <option value="BE">Belgium</option>
+                    <option value="BZ">Belize</option>
+                    <option value="BJ">Benin</option>
+                    <option value="BO">Bolivia</option>
+                    <option value="BA">Bosnia and Herzegovina</option>
+                    <option value="BW">Botswana</option>
+                    <option value="BR">Brazil</option>
+                    <option value="BN">Brunei Darussalam</option>
+                    <option value="DE">Bavaria</option>
+                    <option value="BG">Bulgaria</option>
+                    <option value="BF">Burkina Faso</option>
+                    <option value="BI">Burundi</option>
+                    
+                    <!-- C countries -->
+                    <option value="CV">Cabo Verde</option>
+                    <option value="KH">Cambodia</option>
+                    <option value="CM">Cameroon</option>
+                    <option value="CA">Canada</option>
+                    <option value="KY">Cayman Islands</option>
+                    <option value="CF">Central African Republic</option>
+                    <option value="CA">Central American Federation</option>
+                    <option value="TD">Chad</option>
+                    <option value="CL">Chile</option>
+                    <option value="CN">China</option>
+                    <option value="CO">Colombia</option>
+                    <option value="KM">Comoros</option>
+                    <option value="CG">Congo Free State</option>
+                    <option value="CK">Cook Islands</option>
+                    <option value="CR">Costa Rica</option>
+                    <option value="CI">Cote d’Ivoire</option>
+                    <option value="HR">Croatia</option>
+                    <option value="CU">Cuba</option>
+                    <option value="CY">Cyprus</option>
+                    <option value="CZ">Czechia</option>
+                    <option value="CS">Czechoslovakia</option>
+                    
+                    <!-- D countries -->
+                    <option value="CD">Democratic Republic of the Congo</option>
+                    <option value="DK">Denmark</option>
+                    <option value="DJ">Djibouti</option>
+                    <option value="DM">Dominica</option>
+                    <option value="DO">Dominican Republic</option>
+                    <option value="PE">Duchy of Parma</option>
+                    <option value="DE">East Germany</option>
+                    
+                    <!-- E countries -->
+                    <option value="EC">Ecuador</option>
+                    <option value="EG">Egypt</option>
+                    <option value="SV">El Salvador</option>
+                    <option value="GQ">Equatorial Guinea</option>
+                    <option value="ER">Eritrea</option>
+                    <option value="EE">Estonia</option>
+                    <option value="SZ">Eswatini</option>
+                    <option value="ET">Ethiopia</option>
+                    
+                    <!-- F countries -->
+                    <option value="FJ">Fiji</option>
+                    <option value="FI">Finland</option>
+                    <option value="FR">France</option>
+                    
+                    <!-- G countries -->
+                    <option value="GA">Gabon</option>
+                    <option value="GM">Gambia</option>
+                    <option value="GE">Georgia</option>
+                    <option value="DE">Germany</option>
+                    <option value="GH">Ghana</option>
+                    <option value="IT">Grand Duchy of Tuscany</option>
+                    <option value="GR">Greece</option>
+                    <option value="GD">Grenada</option>
+                    <option value="GT">Guatemala</option>
+                    <option value="GN">Guinea</option>
+                    <option value="GW">Guinea-Bissau</option>
+                    <option value="GY">Guyana</option>
+                    
+                    <!-- H countries -->
+                    <option value="HT">Haiti</option>
+                    <option value="DE">Hanover</option>
+                    <option value="HR">Hanseatic Republics</option>
+                    <option value="HW">Hawaii</option>
+                    <option value="HE">Hesse</option>
+                    <option value="VA">Holy See</option>
+                    <option value="HN">Honduras</option>
+                    <option value="HU">Hungary</option>
+                    
+                    <!-- I countries -->
+                    <option value="IS">Iceland</option>
+                    <option value="IN">India</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="IR">Iran</option>
+                    <option value="IQ">Iraq</option>
+                    <option value="IE">Ireland</option>
+                    <option value="IL">Israel</option>
+                    <option value="IT">Italy</option>
+                    
+                    <!-- J countries -->
+                    <option value="JM">Jamaica</option>
+                    <option value="JP">Japan</option>
+                    <option value="JO">Jordan</option>
+                    
+                    <!-- K countries -->
+                    <option value="KZ">Kazakhstan</option>
+                    <option value="KE">Kenya</option>
+                    <option value="RS">Kingdom of Serbia/Yugoslavia</option>
+                    <option value="KI">Kiribati</option>
+                    <option value="KR">Korea</option>
+                    <option value="KS">Kosovo</option>
+                    <option value="KW">Kuwait</option>
+                    <option value="KG">Kyrgyzstan</option>
+                    
+                    <!-- L countries -->
+                    <option value="LA">Laos</option>
+                    <option value="LV">Latvia</option>
+                    <option value="LB">Lebanon</option>
+                    <option value="LS">Lesotho</option>
+                    <option value="LI">Lew Chew (Loochoo)</option>
+                    <option value="LR">Liberia</option>
+                    <option value="LY">Libya</option>
+                    <option value="LI">Liechtenstein</option>
+                    <option value="LT">Lithuania</option>
+                    <option value="LU">Luxembourg</option>
+                    
+                    <!-- M countries -->
+                    <option value="MG">Madagascar</option>
+                    <option value="MW">Malawi</option>
+                    <option value="MY">Malaysia</option>
+                    <option value="MV">Maldives</option>
+                    <option value="ML">Mali</option>
+                    <option value="MT">Malta</option>
+                    <option value="MH">Marshall Islands</option>
+                    <option value="MR">Mauritania</option>
+                    <option value="MU">Mauritius</option>
+                    <option value="ME">Mecklenburg-Schwerin</option>
+                    <option value="MS">Mecklenburg-Strelitz</option>
+                    <option value="MX">Mexico</option>
+                    <option value="FM">Micronesia</option>
+                    <option value="MD">Moldova</option>
+                    <option value="MC">Monaco</option>
+                    <option value="MN">Mongolia</option>
+                    <option value="ME">Montenegro</option>
+                    <option value="MA">Morocco</option>
+                    <option value="MZ">Mozambique</option>
+                    
+                    <!-- N countries -->
+                    <option value="NA">Namibia</option>
+                    <option value="DE">Nassau</option>
+                    <option value="NR">Nauru</option>
+                    <option value="NP">Nepal</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="NI">Nicaragua</option>
+                    <option value="NE">Niger</option>
+                    <option value="NG">Nigeria</option>
+                    <option value="NU">Niue</option>
+                    <option value="DE">North German Confederation</option>
+                    <option value="DE">North German Union</option>
+                    <option value="MK">North Macedonia</option>
+                    <option value="NO">Norway</option>
+                    
+                    <!-- O countries -->
+                    <option value="OL">Oldenburg</option>
+                    <option value="OM">Oman</option>
+                    <option value="OS">Orange Free State</option>
+                    
+                    <!-- P countries -->
+                    <option value="PK">Pakistan</option>
+                    <option value="PW">Palau</option>
+                    <option value="PA">Panama</option>
+                    <option value="IT">Papal States</option>
+                    <option value="PG">Papua New Guinea</option>
+                    <option value="PY">Paraguay</option>
+                    <option value="PE">Peru</option>
+                    <option value="PH">Philippines</option>
+                    <option value="IT">Piedmont-Sardinia</option>
+                    <option value="PL">Poland</option>
+                    <option value="PT">Portugal</option>
+                    
+                    <!-- Q countries -->
+                    <option value="QA">Qatar</option>
+                    
+                    <!-- R countries -->
+                    <option value="IT">Republic of Genoa</option>
+                    <option value="KR">Republic of Korea (South Korea)</option>
+                    <option value="CG">Republic of the Congo</option>
+                    <option value="RO">Romania</option>
+                    <option value="RU">Russia</option>
+                    <option value="RW">Rwanda</option>
+                    
+                    <!-- S countries -->
+                    <option value="KN">Saint Kitts and Nevis</option>
+                    <option value="LC">Saint Lucia</option>
+                    <option value="VC">Saint Vincent and the Grenadines</option>
+                    <option value="WS">Samoa</option>
+                    <option value="SM">San Marino</option>
+                    <option value="ST">Sao Tome and Principe</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="SL">Schaumburg-Lippe</option>
+                    <option value="SN">Senegal</option>
+                    <option value="RS">Serbia</option>
+                    <option value="SC">Seychelles</option>
+                    <option value="SL">Sierra Leone</option>
+                    <option value="SG">Singapore</option>
+                    <option value="SK">Slovakia</option>
+                    <option value="SI">Slovenia</option>
+                    <option value="SB">Solomon Islands</option>
+                    <option value="SO">Somalia</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="SS">South Sudan</option>
+                    <option value="ES">Spain</option>
+                    <option value="LK">Sri Lanka</option>
+                    <option value="SD">Sudan</option>
+                    <option value="SR">Suriname</option>
+                    <option value="SE">Sweden</option>
+                    <option value="CH">Switzerland</option>
+                    <option value="SY">Syria</option>
+                    
+                    <!-- T countries -->
+                    <option value="TJ">Tajikistan</option>
+                    <option value="TZ">Tanzania</option>
+                    <option value="TX">Texas</option>
+                    <option value="TH">Thailand</option>
+                    <option value="TL">Timor-Leste</option>
+                    <option value="TG">Togo</option>
+                    <option value="TO">Tonga</option>
+                    <option value="TT">Trinidad and Tobago</option>
+                    <option value="TN">Tunisia</option>
+                    <option value="TR">Turkey</option>
+                    <option value="TM">Turkmenistan</option>
+                    <option value="TV">Tuvalu</option>
+                    <option value="IT">Two Sicilies</option>
+                    
+                    <!-- U countries -->
+                    <option value="UG">Uganda</option>
+                    <option value="UA">Ukraine</option>
+                    <option value="SU">Union of Soviet Socialist Republics</option>
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="UY">Uruguay</option>
+                    <option value="UZ">Uzbekistan</option>
+                    
+                    <!-- V countries -->
+                    <option value="VU">Vanuatu</option>
+                    <option value="VE">Venezuela</option>
+                    <option value="VN">Vietnam</option>
+                    
+                    <!-- W countries -->
+                    <option value="DE">Württemberg</option>
+                    
+                    <!-- Y countries -->
+                    <option value="YE">Yemen</option>
+                    
+                    <!-- Z countries -->
+                    <option value="ZM">Zambia</option>
+                    <option value="ZW">Zimbabwe</option>
+                  </select>
+    
+                <!-- Scaffolding Type Dropdown -->
+                <select name="scaffoldingType" required>
+                    <option value="" disabled selected>Select Scaffolding Type</option>
+                    <option value="renglock">Reng Lock</option>
+                    <option value="cuplock">Cuplock</option>
+                    <option value="tubes">Tubes</option>
+                    <option value="coupler">Coupler</option>
+                    <option value="props">Props</option>
+                </select>
+    
+                <!-- Quantity -->
+                <input type="number" name="quantity" placeholder="Quantity" required>
+    
+                <!-- Product Finish Checkboxes -->
+                <div class="product-finish" style="margin-top: 10px;">
+                    <label for="productFinish">Select Product Finish </label><br>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" name="productFinish" value="Galvanised" style="margin-right: 5px;">
+                            <label for="galvanised" style="font-size: 12px;">Galvanised</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" name="productFinish" value="Painted" style="margin-right: 5px;">
+                            <label for="painted" style="font-size: 12px;">Painted</label>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" name="productFinish" value="Block" style="margin-right: 5px;">
+                            <label for="block" style="font-size: 12px;">Black</label>
+                        </div>
+                    </div>
+                </div>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+    
+        <script>
+            // Check if the form was closed previously or is mobile
+            if (localStorage.getItem('formClosed') === 'true' || window.innerWidth <= 768) {
+                document.getElementById('stickyForm').classList.add('hidden');
+            }
+    
+            // JavaScript to handle scroll event and resize the form
+            window.addEventListener('scroll', function () {
+                const form = document.getElementById('stickyForm');
+    
+                if (window.scrollY > 100) {
+                    form.classList.add('shrink');
+                } else {
+                    form.classList.remove('shrink');
+                }
+            });
+    
+            // Close button click event
+            document.getElementById('closeButton').addEventListener('click', function () {
+                const form = document.getElementById('stickyForm');
+                form.classList.add('hidden');
+    
+                // Save state in localStorage to remember the form is closed
+                localStorage.setItem('formClosed', 'true');
+            });
+    
+            // Reset localStorage when the page reloads
+            window.addEventListener('load', function () {
+                if (window.innerWidth > 768) {  // Show form on larger screens
+                    localStorage.removeItem('formClosed');
+                    document.getElementById('stickyForm').classList.remove('hidden');
+                }
+            });
+        </script>
+        <div class="">
+            <!-- Top Bar Start -->
+            <div class="top-bar">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="logo">
+                                <a href="index.html">
+                                   <img src="../static/img/myl.png" style="width: 300px;height: 70px;" alt="">
+                                    <!-- <img src="img/logo.jpg" alt="Logo"> -->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-7 d-none d-lg-block">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="top-bar-item">
+                                        <div class="top-bar-icon">
+                                            <i class="flaticon-calendar"></i>
+                                        </div>
+                                        <div class="top-bar-text">
+                                            <h3>Opening Hour</h3>
+                                            <p>24*7</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="top-bar-item">
+                                        <div class="top-bar-icon">
+                                            <!-- <i class="flaticon-calendar"></i> -->
+                                            <i class="fa-solid fa-crown" style="font-size: 30px;color: black;"></i>
+                                        </div>
+                                        <div class="top-bar-text">
+                                            <a href="premium" class="hover-button">Premium</a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="top-bar-item">
+                                        <div class="top-bar-icon">
+                                            <i class="flaticon-call"></i>
+                                        </div>
+                                        <div class="top-bar-text">
+                                            <h3>Call Us</h3>
+                                            <p>+012 345 6789</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="top-bar-item">
+                                        <div class="top-bar-icon">
+                                            <i class="flaticon-send-mail"></i>
+                                        </div>
+                                        <div class="top-bar-text">
+                                            <h3>Email Us</h3>
+                                            <p>info@buyx.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- Top Bar End -->
+
+        <!-- Nav Bar Start -->
+        <div class="nav-bar">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand">MENU</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            
+                            <!-- <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
+                            <a href="{% url 'team' %}" class="nav-item nav-link">Team</a>
+                            <a href="{% url 'project' %}" class="nav-item nav-link">Project</a> -->
+
+                            {% for category in categories %}
+                            <div class="nav-item dropdown" style="z-index: 9999999999999;">
+
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> {{ category.name}}</a>
+                                <div class="dropdown-menu">
+                                    {% for subcategory in category.subcategories.all %}
+                                    <a href="productview/{{subcategory.id}}" class="dropdown-item">{{ subcategory.name }}</a>
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+                            {% endfor %}
+                            <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
+                            <a href="{% url 'myaboutpage' %}" class="nav-item nav-link">About</a>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'myorders' %}" class="nav-item nav-link">Profile</a>
+                            {% else %}
+                            <a href="{% url 'loginpage' %}" class="nav-item nav-link">Login/Signup</a>
+                            {% endif %}
+                            <a href="{% url 'mycart' %}" class="nav-item nav-link">
+                                <div class="cart-container" style="position: relative;">
+                                    <div class="cart-icon" slot=" position: relative;">
+                                        <!-- Font Awesome Cart Icon -->
+                                        <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
+                                        <!-- Notification Badge -->
+                                        <div class="cart-badge" style=" position: absolute; /* Position relative to the .cart-icon */
+                                        top: -10px; /* Align to the top of the .cart-icon */
+                                        left: 20px; /* Align to the left of the .cart-icon */
+                                        background-color: red; /* Add a background color for the badge */
+                                        color: white; /* White text for visibility */
+                                        border-radius: 50%; /* Make it circular */
+                                        padding: 1px 2px; /* Adjust padding to fit the number */
+                                        font-size: 12px; /* Adjust font size as needed */">{{request.session.cart.keys|length}}</div>
+                                        <!-- Replace with dynamic number -->
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+
+                        <div class="ml-auto">
+
+                            <a class="btn" href="#">Get A Quote</a>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+
+
+            <!-- Page Header Start -->
+            <div class="page-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Single Page</h2>
+                        </div>
+                        <div class="col-12">
+                            <a href="">Home</a>
+                            <a href="">Single Page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Header End -->
+
+
+            <!-- Single Post Start-->
+            <div class="single">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="single-content wow fadeInUp">
+                                <img src="img/single.jpg" />
+                                <h2>Lorem ipsum dolor sit amet</h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie, lorem eu eleifend bibendum, augue purus mollis sapien, non rhoncus eros leo in nunc. Donec a nulla vel turpis consectetur tempor ac vel justo. In hac habitasse platea dictumst. Cras nec sollicitudin eros. Nunc eu enim non turpis sagittis rhoncus consectetur id augue. Mauris dignissim neque felis. Phasellus mollis mi a pharetra cursus. Maecenas vulputate augue placerat lacus mattis, nec ornare risus sollicitudin.
+                                </p>
+                                <p>
+                                    Mauris eu pulvinar tellus, eu luctus nisl. Pellentesque suscipit mi eu varius pulvinar. Aenean vulputate, massa eget elementum finibus, ipsum arcu commodo est, ut mattis eros orci ac risus. Suspendisse ornare, massa in feugiat facilisis, eros nisl auctor lacus, laoreet tempus elit dolor eu lorem. Nunc a arcu suscipit, suscipit quam quis, semper augue.
+                                </p>
+                                <p>
+                                    Quisque arcu nulla, convallis nec orci vel, suscipit elementum odio. Curabitur volutpat velit non diam tincidunt sodales. Nullam sapien libero, bibendum nec viverra in, iaculis ut eros.
+                                </p>
+                                <h3>Lorem ipsum dolor sit amet</h3>
+                                <p>
+                                    Vestibulum sit amet ullamcorper sem. Integer hendrerit elit eget purus sodales maximus. Quisque ac nulla arcu. Morbi venenatis arcu ac arcu cursus pharetra. Morbi sit amet viverra augue, ac ultricies libero. Praesent elementum lectus mi, eu elementum urna venenatis sed. Donec auctor purus ut mattis feugiat. Integer mi erat, consectetur sed tincidunt vitae, sagittis elementum libero. Vivamus a mauris consequat, hendrerit lectus in, fermentum libero. Integer mattis bibendum neque et porttitor.
+                                </p>
+                                <p>
+                                    Mauris quis arcu finibus, posuere dolor eu, viverra felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In porta, ex vitae accumsan facilisis, nisi tellus dictum metus, quis fringilla dui tellus in tellus. Praesent pharetra orci at vehicula posuere. Sed molestie fringilla lorem, vel imperdiet tortor blandit at. Quisque non ultrices lorem, eget rhoncus orci. Fusce porttitor placerat diam et mattis. Nam laoreet, ex eu posuere sollicitudin, sem tortor pellentesque ipsum, quis mattis purus lectus ut lacus. Integer eu risus ac est interdum scelerisque.
+                                </p>
+                                <h4>Lorem ipsum dolor sit amet</h4>
+                                <p>
+                                    Praesent ultricies, mauris eget vestibulum viverra, neque lorem malesuada mauris, eget rhoncus lectus enim a lorem. Vivamus at vehicula risus, eget facilisis massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et posuere sapien. Fusce bibendum lorem sem, quis tincidunt felis mattis nec.
+                                </p>
+                                <p>
+                                    Proin vel nulla purus. Nunc nec eros in nisi efficitur rutrum quis sed eros. Mauris felis dolor, rhoncus eget gravida vitae, pretium vel arcu. Cras blandit tellus eget tellus dictum venenatis. Sed ultricies bibendum dictum. Etiam facilisis erat id turpis tincidunt malesuada. Duis bibendum sapien eu condimentum sagittis. Proin nunc lorem, ullamcorper vel tortor sodales, imperdiet lacinia dui. Sed congue, felis id rhoncus varius, urna lacus imperdiet nunc, ut porttitor mauris mi quis mi. Integer rutrum est finibus metus eleifend scelerisque. Morbi auctor dignissim purus in interdum. Vestibulum eu dictum enim. Suspendisse et sem vitae velit feugiat facilisis.
+                                </p>
+                                <p>
+                                    Nam sodales scelerisque nunc sed convallis. Vestibulum facilisis porta erat, sit amet pharetra tortor blandit id. Nunc velit tellus, consectetur sed convallis in, tincidunt finibus nulla. Integer vel ex in mauris tincidunt tincidunt nec sed elit. Etiam pretium lectus lectus, sed aliquet erat tristique euismod. Praesent faucibus nisl augue, ac tempus libero pellentesque malesuada. Vivamus iaculis imperdiet laoreet. Aliquam vel felis felis. Proin sed sapien erat. Etiam a quam et metus tempor rutrum. Curabitur in faucibus justo. Etiam imperdiet iaculis urna.
+                                </p>
+                            </div>
+                            <div class="single-tags wow fadeInUp">
+                                <a href="">National</a>
+                                <a href="">International</a>
+                                <a href="">Economics</a>
+                                <a href="">Politics</a>
+                                <a href="">Lifestyle</a>
+                                <a href="">Technology</a>
+                                <a href="">Trades</a>
+                            </div>
+                            <div class="single-bio wow fadeInUp">
+                                <div class="single-bio-img">
+                                    <img src="img/user.jpg" />
+                                </div>
+                                <div class="single-bio-text">
+                                    <h3>Author Name</h3>
+                                    <p>
+                                        Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="single-related wow fadeInUp">
+                                <h2>Related Post</h2>
+                                <div class="owl-carousel related-slider">
+                                    <div class="post-item">
+                                        <div class="post-img">
+                                            <img src="img/post-1.jpg" />
+                                        </div>
+                                        <div class="post-text">
+                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <div class="post-meta">
+                                                <p>By<a href="">Admin</a></p>
+                                                <p>In<a href="">Design</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post-item">
+                                        <div class="post-img">
+                                            <img src="img/post-2.jpg" />
+                                        </div>
+                                        <div class="post-text">
+                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <div class="post-meta">
+                                                <p>By<a href="">Admin</a></p>
+                                                <p>In<a href="">Design</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post-item">
+                                        <div class="post-img">
+                                            <img src="img/post-3.jpg" />
+                                        </div>
+                                        <div class="post-text">
+                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <div class="post-meta">
+                                                <p>By<a href="">Admin</a></p>
+                                                <p>In<a href="">Design</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post-item">
+                                        <div class="post-img">
+                                            <img src="img/post-4.jpg" />
+                                        </div>
+                                        <div class="post-text">
+                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <div class="post-meta">
+                                                <p>By<a href="">Admin</a></p>
+                                                <p>In<a href="">Design</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="single-comment wow fadeInUp">
+                                <h2>3 Comments</h2>
+                                <ul class="comment-list">
+                                    <li class="comment-item">
+                                        <div class="comment-body">
+                                            <div class="comment-img">
+                                                <img src="img/user.jpg" />
+                                            </div>
+                                            <div class="comment-text">
+                                                <h3><a href="">Josh Dunn</a></h3>
+                                                <span>01 Jan 2045 at 12:00pm</span>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst. 
+                                                </p>
+                                                <a class="btn" href="">Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="comment-item">
+                                        <div class="comment-body">
+                                            <div class="comment-img">
+                                                <img src="img/user.jpg" />
+                                            </div>
+                                            <div class="comment-text">
+                                                <h3><a href="">Josh Dunn</a></h3>
+                                                <p><span>01 Jan 2045 at 12:00pm</span></p>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst. 
+                                                </p>
+                                                <a class="btn" href="">Reply</a>
+                                            </div>
+                                        </div>
+                                        <ul class="comment-child">
+                                            <li class="comment-item">
+                                                <div class="comment-body">
+                                                    <div class="comment-img">
+                                                        <img src="img/user.jpg" />
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <h3><a href="">Josh Dunn</a></h3>
+                                                        <p><span>01 Jan 2045 at 12:00pm</span></p>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst. 
+                                                        </p>
+                                                        <a class="btn" href="">Reply</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="comment-form wow fadeInUp">
+                                <h2>Leave a comment</h2>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="name">Name *</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email *</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="website">Website</label>
+                                        <input type="url" class="form-control" id="website">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="message">Message *</label>
+                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Post Comment" class="btn">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="sidebar">
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <div class="search-widget">
+                                        <form>
+                                            <input class="form-control" type="text" placeholder="Search Keyword">
+                                            <button class="btn"><i class="fa fa-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <h2 class="widget-title">Recent Post</h2>
+                                    <div class="recent-post">
+                                        <div class="post-item">
+                                            <div class="post-img">
+                                                <img src="img/post-1.jpg" />
+                                            </div>
+                                            <div class="post-text">
+                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <div class="post-meta">
+                                                    <p>By<a href="">Admin</a></p>
+                                                    <p>In<a href="">Design</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-item">
+                                            <div class="post-img">
+                                                <img src="img/post-2.jpg" />
+                                            </div>
+                                            <div class="post-text">
+                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <div class="post-meta">
+                                                    <p>By<a href="">Admin</a></p>
+                                                    <p>In<a href="">Design</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-item">
+                                            <div class="post-img">
+                                                <img src="img/post-3.jpg" />
+                                            </div>
+                                            <div class="post-text">
+                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <div class="post-meta">
+                                                    <p>By<a href="">Admin</a></p>
+                                                    <p>In<a href="">Design</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-item">
+                                            <div class="post-img">
+                                                <img src="img/post-4.jpg" />
+                                            </div>
+                                            <div class="post-text">
+                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <div class="post-meta">
+                                                    <p>By<a href="">Admin</a></p>
+                                                    <p>In<a href="">Design</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-item">
+                                            <div class="post-img">
+                                                <img src="img/post-5.jpg" />
+                                            </div>
+                                            <div class="post-text">
+                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <div class="post-meta">
+                                                    <p>By<a href="">Admin</a></p>
+                                                    <p>In<a href="">Design</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <div class="image-widget">
+                                        <a href="#"><img src="img/blog-1.jpg" alt="Image"></a>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <div class="tab-post">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="pill" href="#featured">Featured</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#popular">Popular</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#latest">Latest</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div id="featured" class="container tab-pane active">
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-1.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-2.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-3.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-4.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-5.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="popular" class="container tab-pane fade">
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-1.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-2.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-3.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-4.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-5.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="latest" class="container tab-pane fade">
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-1.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-2.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-3.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-4.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-item">
+                                                    <div class="post-img">
+                                                        <img src="img/post-5.jpg" />
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <div class="post-meta">
+                                                            <p>By<a href="">Admin</a></p>
+                                                            <p>In<a href="">Design</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <div class="image-widget">
+                                        <a href="#"><img src="img/blog-2.jpg" alt="Image"></a>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <h2 class="widget-title">Categories</h2>
+                                    <div class="category-widget">
+                                        <ul>
+                                            <li><a href="">National</a><span>(98)</span></li>
+                                            <li><a href="">International</a><span>(87)</span></li>
+                                            <li><a href="">Economics</a><span>(76)</span></li>
+                                            <li><a href="">Politics</a><span>(65)</span></li>
+                                            <li><a href="">Lifestyle</a><span>(54)</span></li>
+                                            <li><a href="">Technology</a><span>(43)</span></li>
+                                            <li><a href="">Trades</a><span>(32)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <div class="image-widget">
+                                        <a href="#"><img src="img/blog-3.jpg" alt="Image"></a>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <h2 class="widget-title">Tags Cloud</h2>
+                                    <div class="tag-widget">
+                                        <a href="">National</a>
+                                        <a href="">International</a>
+                                        <a href="">Economics</a>
+                                        <a href="">Politics</a>
+                                        <a href="">Lifestyle</a>
+                                        <a href="">Technology</a>
+                                        <a href="">Trades</a>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-widget wow fadeInUp">
+                                    <h2 class="widget-title">Text Widget</h2>
+                                    <div class="text-widget">
+                                        <p>
+                                            Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea nec eros. Nunc eu enim non turpis id augue.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Post End-->   
+
+
+            <!-- Footer Start -->
+            <div class="footer wow fadeIn" data-wow-delay="0.3s">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="footer-contact">
+                                <h2>Office Contact</h2>
+                                <p><i class="fa fa-map-marker-alt"></i>E 120,1st Floor,site V Kasna Greater Noida</p>
+                                <!-- <p><i class="fa fa-phone-alt"></i>+91-9773989854</p> -->
+                                <p><i class="fa fa-envelope"></i>info@buyx.com</p>
+                                <div class="footer-social">
+                                    <a href=""><i class="fab fa-twitter"></i></a>
+                                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a href=""><i class="fab fa-youtube"></i></a>
+                                    <a href=""><i class="fab fa-instagram"></i></a>
+                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="footer-link">
+                                <h2>Services Areas</h2>
+                                <a href="{% url 'paymentpolicy' %}">Shipping Policy</a>
+                                <a href="{% url 'refundpolicy' %}">Cancellation Policy
+                                </a>
+                                <a href="{% url 'cancelpolicy' %}">Exchange Policy
+                                </a>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="footer-link">
+                                <h2>Useful Pages</h2>
+                                <a href="{% url 'myaboutpage' %}">About Us</a>
+                                <a href="{% url 'contact' %}">Contact Us</a>
+                                
+                                <a href="{% url 'allproducts' %}">All Products</a>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="newsletter">
+                                <h2>Newsletter</h2>
+                                <p>
+                                    At BuyX, we specialize in providing top-tier scaffolding services for some of the most demanding and complex projects across industries.
+                                </p>
+                                <div class="form">
+                                    <input class="form-control" placeholder="Email here">
+                                    <button class="btn">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="container footer-menu">
+                    <div class="f-menu">
+                        <a href="">Terms of use</a>
+                        <a href="">Privacy policy</a>
+                        <a href="">Cookies</a>
+                        <a href="">Help</a>
+                        <a href="">FQAs</a>
+                    </div>
+                </div> -->
+                <div class="container copyright">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>&copy; <a href="#">BuyX</a>, All Right Reserved.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Designed By <a href="https://slanzgroup.com">Slanzgroup</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+
+            <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/slick/slick.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
