@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24 Hour Countdown Timer</title>
+    {% load cart %}
+    <style>
+          /* premium bottun css */
+
+    /* Basic Styles */
+.top-bar-text {
+    text-align: center;
+}
+
+.hover-button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    background-color: #121518; /* Button background color */
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for effects */
+}
+
+/* Hover Effect */
+.hover-button:hover {
+    background-color: #fdbe33; /* Change background on hover */
+    color: #121518; /* Change text color on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    transform: translateY(-5px); /* Slight upward movement */
+}
+
+/* Optional: Adding underline on hover */
+.hover-button:hover {
+    text-decoration: underline;
+}
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .timer {
+            background-color: #ffffff;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .timer span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="timer">
+        
+        <p>Time Remaining: <span id="countdown"></span></p>
+    </div>
+
+    <script>
+        // Set the countdown duration (24 hours)
+        let countdownDuration = 11 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+        // Update the countdown every second
+        let timerInterval = setInterval(function() {
+            // Calculate remaining time
+            let hours = Math.floor(countdownDuration / (1000 * 60 * 60));
+            let minutes = Math.floor((countdownDuration % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((countdownDuration % (1000 * 60)) / 1000);
+
+            // Format time to always show 2 digits
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // Display the countdown
+            document.getElementById('countdown').textContent = `${hours}:${minutes}:${seconds}`;
+
+            // Decrease the remaining time
+            countdownDuration -= 1000;
+
+            // If the countdown is finished, clear the interval and show a message
+            if (countdownDuration <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('countdown').textContent = 'Time\'s up!';
+            }
+        }, 1000); // 1000 ms = 1 second
+    </script>
+
+</body>
+</html>
